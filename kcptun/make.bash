@@ -25,18 +25,17 @@ fi
 if [ ! -d "$ANDROID_ARM_TOOLCHAIN" ]; then
     echo "Make standalone toolchain for ARM arch"
     $ANDROID_NDK_HOME/build/tools/make_standalone_toolchain.py --arch arm \
-        --api 16 --install-dir $ANDROID_ARM_TOOLCHAIN
+        --api 16 --install-dir $ANDROID_ARM_TOOLCHAIN --deprecated-headers
 fi
 
 if [ ! -d "$ANDROID_X86_TOOLCHAIN" ]; then
     echo "Make standalone toolchain for X86 arch"
     $ANDROID_NDK_HOME/build/tools/make_standalone_toolchain.py --arch x86 \
-        --api 16 --install-dir $ANDROID_X86_TOOLCHAIN
+        --api 16 --install-dir $ANDROID_X86_TOOLCHAIN --deprecated-headers
 fi
 
 if [ ! -d "$DIR/go/bin" ]; then
-    echo "Build the custom go"
-
+    echo "Build the custom go: $DIR/go/bin"
     pushd $DIR/go/src
     try ./make.bash
     popd
@@ -49,7 +48,6 @@ mkdir -p $GOBIN
 export PATH=$GOROOT/bin:$PATH
 
 pushd kcptun/client
-
 echo "Get dependences for kcptun"
 go get -u github.com/xtaci/kcp-go
 go get -u github.com/xtaci/smux
