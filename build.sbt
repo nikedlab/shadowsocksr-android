@@ -19,6 +19,8 @@ proguardVersion := "5.3.2"
 proguardCache := Seq()
 proguardOptions ++=
   "-keep class com.github.shadowsocks.System { *; }" ::
+  "-keep class sun.net.spi.nameservice.NameService { *; }" ::
+  "-dontwarn net.vrallev.android.cat.**" ::
   "-dontwarn com.google.android.gms.internal.**" ::
   "-dontwarn com.j256.ormlite.**" ::
   "-dontwarn okio.**" ::
